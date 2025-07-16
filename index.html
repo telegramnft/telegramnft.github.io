@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Telegram Frog NFT Mint</title>
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/@tonconnect/ui@latest/dist/tonconnect-ui.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .sparkle::after {
+      content: '🐸';
+      position: absolute;
+      color: #FFD700;
+      font-size: 1.5rem;
+      opacity: 0;
+      animation: sparkle 0.5s ease-out forwards;
+    }
+    @keyframes sparkle {
+      0% { opacity: 0; transform: scale(0) translateY(0); }
+      50% { opacity: 1; transform: scale(1.5) translateY(-20px); }
+      100% { opacity: 0; transform: scale(0) translateY(-40px); }
+    }
+    body {
+      background: url('https://iili.io/3DmxqBa.gif') no-repeat center center fixed;
+      background-size: cover;
+      backdrop-filter: blur(5px);
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-white bg-opacity-10 backdrop-blur-lg rounded-2xl shadow-xl p-6 max-w-md w-full text-center relative z-10">
+    <div class="tilt relative" style="perspective: 1000px;">
+      <img id="nftImage" src="https://iili.io/3DvIXqv.jpg" alt="NFT Image"
+        class="rounded-xl w-full mb-4 transition-transform duration-300 cursor-pointer shadow-[0_0_20px_rgba(255,215,0,0.7)] bg-gradient-to-br from-green-600 to-green-800 p-2">
+    </div>
+    <div class="flex items-center justify-center mb-2">
+      <img src="https://iili.io/3DvIXqv.jpg" alt="Logo" class="w-10 h-10 rounded-full mr-2 border-2 border-green-400">
+      <h1 class="text-3xl font-bold flex items-center text-white">
+        Telegram Frog
+        <img src="https://iili.io/3DDTCBa.png" alt="Verified" class="w-5 h-5 ml-2">
+      </h1>
+    </div>
+    <p class="text-gray-300 mb-4">4444 Limited Frogs on TON. Only 3 TON each. Grab yours before they're gone!</p>
+    <p class="text-lg font-semibold text-green-400 mb-2">💰 Price: 3 TON</p>
+    <div class="w-full bg-gray-700 rounded-full h-4 mb-4">
+      <div id="progressBar" class="bg-green-500 h-4 rounded-full" style="width: 0%;"></div>
+    </div>
+    <p id="progressText" class="text-sm text-gray-400 mb-4">Minted: 0 / 4444</p>
+    <div id="wallet-connect" class="mb-3"></div>
+    <button id="mintNft" disabled class="bg-green-600 hover:bg-green-700 w-full py-2 rounded-xl font-semibold">
+      Mint NFT
+    </button>
+    <p id="status" class="text-sm text-gray-400 mt-4"></p>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-app.js";
+    import { getDatabase, ref, onValue, set } from "https://www.gstatic.com/firebasejs/11.10.0/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyC_gqKlIOINHTgJRudkHCvvBHmVmGM6fOY",
+      authDomain: "tgmint-10e8c.firebaseapp.com",
+      projectId: "tgmint-10e8c",
+      storageBucket: "tgmint-10e8c.firebasestorage.app",
+      messagingSenderId: "1082628657576",
+      appId: "1:1082628657576:web:20db1ce11227693f968d9d"
+    };
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    const connector = new TON_CONNECT_UI.TonConnectUI({
+      manifestUrl: 'https://yourdomain.com/tonconnect-manifest.json',
+      buttonRootId: 'wallet-connect',
+    });
+
+    let minted = 0;
+    const totalSupply = 4444;
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const mintBtn = document.getElementById('mintNft');
+    const statusText = document.getElementById('status');
+
+    onValue(ref(db, 'mints'), (snapshot) => {
+      minted = Object.keys(snapshot.val() || {}).length;
+      const percent = (minted / totalSupply) * 100;
+      progressBar.style.width = percent + '%';
+      progressText.textContent = `Minted: ${minted} / ${totalSupply}`;
+    });
+
+    connector.onStatusChange(async wallet => {
+      if (wallet) {
+        mintBtn.disabled = false;
+      }
+    });
+
+    mintBtn.addEventListener('click', async () => {
+      const walletInfo = await connector.connector.getWallet();
+      if (!walletInfo) return;
+
+      const address = walletInfo.account.address;
+      const tx = {
+        validUntil: Math.floor(Date.now() / 1000) + 600,
+        messages: [
+          {
+            address: "UQD7zTcEBRLNnI9DXJfzkauk0gP_PqerayMyOXfkiZ7UyGhj", // Receiver TON address
+            amount: "3000000000"
+          }
+        ]
+      };
+
+      try {
+        const result = await connector.sendTransaction(tx);
+        await set(ref(db, 'mints/' + address), {
+          tonAddress: address,
+          txHash: result.boc,
+          status: 'pending',
+          timestamp: Date.now(),
+        });
+        statusText.textContent = '✅ Mint Requested! NFT will be delivered later.';
+      } catch (e) {
+        statusText.textContent = '❌ Mint Failed';
+        console.error(e);
+      }
+    });
+
+    VanillaTilt.init(document.querySelector('.tilt'), {
+      max: 25,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.5,
+    });
+  </script>
+</body>
+</html>
