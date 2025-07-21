@@ -1,9 +1,9 @@
 {
-  "url": "https://telegramnft.github.io/",
+  "url":"https://telegramnft.github.io/",
   "name": "Telegram NFT",
   "iconUrl": "https://iili.io/FwbojkX.jpg",
-  "termsOfUseUrl": "soon",
-  "privacyPolicyUrl": "Sooon",
+  "termsOfUseUrl": "https://telegramnft.github.io/terms",
+  "privacyPolicyUrl": "https://telegramnft.github.io/privacy",
   "manifestVersion": "0.0.1",
   "bridgeUrl": "https://bridge.tonapi.io/bridge",
   "platforms": ["web"]
