@@ -1,0 +1,10 @@
+{
+  "url": "https://telegramnft.github.io/",
+  "name": "Telegram NFT",
+  "iconUrl": "https://iili.io/FwbojkX.jpg",
+  "termsOfUseUrl": "soon",
+  "privacyPolicyUrl": "Sooon",
+  "manifestVersion": "0.0.1",
+  "bridgeUrl": "https://bridge.tonapi.io/bridge",
+  "platforms": ["web"]
+}
